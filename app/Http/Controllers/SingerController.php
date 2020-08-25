@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Exception;
 use App\Models\Singer;
 
 class SingerController extends Controller
@@ -37,7 +39,13 @@ class SingerController extends Controller
      */
     public function store(Request $request)
     {
-        Singer::create($request->all());
+        try {
+            Singer::create($request->all());
+        } catch (Exception $e) {
+            Log::error($e);
+
+            return back()->with('message', __('text.create.error'));
+        }
 
         return redirect()->route('singers.index')->with('message', __('text.create.success'));
     }
@@ -61,7 +69,9 @@ class SingerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $singer = Singer::findOrFail($id);
+
+        return view('singers.edit', compact('singer'));
     }
 
     /**
@@ -73,9 +83,18 @@ class SingerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $singer = Singer::findOrFail($id);
 
+        try {
+            $singer->update($request->all());
+        } catch (Exception $e) {
+            Log::error($e);
+
+            return back()->with('message', __('text.update.error'));
+        }
+
+        return redirect()->route('singers.index')->with('message', __('text.update.success'));
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -84,6 +103,9 @@ class SingerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $singer = Singer::findOrFail($id);
+        $singer->delete();
+
+        return redirect()->route('singers.index')->with('message', __('text.delete.success'));
     }
 }
