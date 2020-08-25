@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('songs', 'SongController');
+Auth::routes();
 
-Route::resource('singers', 'SingerController');
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('song', 'SongController');
+
+Route::resource('singer', 'SingerController');
+

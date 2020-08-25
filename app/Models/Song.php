@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Song extends Model
 {
     protected $fillable = [
+        'singer_id',
         'name',
-        'city',
-        'dob',
+        'category',
     ];
 
     public function singer()
