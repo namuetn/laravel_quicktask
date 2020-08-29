@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('user.change-language');
+    Route::get('/', 'HomeController@welcome')->name('dasboard');
+    Route::get('home', 'HomeController@index');
+    Auth::routes();
+    Route::resource('songs', 'SongController');
+    Route::resource('singers', 'SingerController');
+
 });
-
-Route::resource('songs', 'SongController');
-
-Route::resource('singers', 'SingerController');

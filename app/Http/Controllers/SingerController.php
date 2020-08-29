@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Singer;
 
 class SingerController extends Controller
 {
@@ -13,7 +14,9 @@ class SingerController extends Controller
      */
     public function index()
     {
-        //
+        $singers = Singer::all();
+
+        return view('singers.index', compact('singers'));
     }
 
     /**
@@ -23,7 +26,7 @@ class SingerController extends Controller
      */
     public function create()
     {
-        //
+        return view('singers.create', compact('singers'));
     }
 
     /**
@@ -34,7 +37,9 @@ class SingerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Singer::create($request->all());
+
+        return redirect()->route('singers.index')->with('message', __('text.create.success'));
     }
 
     /**
