@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><h1>{{ trans('text.Singer') }}</h1></div>
+                <div class="card-header"><h1>{{ trans('text.singer') }}</h1></div>
 
                 <div class="card-body">
                     @if (session('message'))
@@ -17,10 +17,10 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>{{ trans('text.Name') }}</th>
-                                <th>{{ trans('text.City') }}</th>
-                                <th>{{ trans('text.Date Of Birth') }}</th>
-                                <th>{{ trans('text.Action') }}</th>
+                                <th>{{ trans('text.name') }}</th>
+                                <th>{{ trans('text.city') }}</th>
+                                <th>{{ trans('text.dob') }}</th>
+                                <th>{{ trans('text.action') }}</th>
                             </tr>
                         </thead>
 
@@ -31,8 +31,34 @@
                                 <td>{{ $singer->city }}</td>
                                 <td>{{ $singer->dob }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-warning">{{ trans('text.Edit') }}</button>
-                                    <button type="button" class="btn btn-danger">{{ trans('text.Delete') }}</button>
+                                    <a href="{{ route('singers.edit', $singer->id) }}"><button type="button" class="btn btn-warning">{{ trans('text.edit') }}</button></a>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal-{{ $singer->id }}">{{ trans('text.delete') }}</button>
+
+                                    <div class="modal fade" id="exampleModal-{{ $singer->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">{{ trans('text.delete_singer') }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    {{ trans('text.you_definitely_want_to_delete?') }}
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('text.close') }}</button>
+                                                    <form action="{{ route('singers.destroy', $singer->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-primary">{{ trans('text.yes') }}</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -42,7 +68,7 @@
                 </div>
             </div>
             <br>
-            <a href="{{ route('singers.create') }}"><button type="button" class="btn btn-primary">{{ trans('text.Create New Singer') }}</button></a>
+            <a href="{{ route('singers.create') }}"><button type="button" class="btn btn-primary">{{ trans('text.create_new_singer') }}</button></a>
         </div>
     </div>
 </div>

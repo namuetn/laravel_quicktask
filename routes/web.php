@@ -20,5 +20,4 @@ Route::group(['middleware' => 'locale'], function() {
     Auth::routes();
     Route::resource('songs', 'SongController');
     Route::resource('singers', 'SingerController');
-
 });

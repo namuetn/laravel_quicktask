@@ -13,10 +13,6 @@
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
-    <!-- <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> -->
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -27,6 +23,12 @@
                 <a class="navbar-brand" href="{{ route('dasboard') }}">
                     {{ config('app.name') }}
                 </a>
+                <a class="navbar-brand" href="{{ route('singers.index') }}">
+                    {{ trans('text.singer') }}
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ trans('text.Toggle navigation') }}">
+
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ trans('text.Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -42,26 +44,24 @@
                         <!-- Authentication Links -->
                         <div class="dropdown">
                                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ trans('text.Language') }}
+                                    {{ trans('text.language') }}
                                 </button>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="{!! route('user.change-language', ['en']) !!}">{{ trans('text.English') }}</a>
-                                    <a class="dropdown-item" href="{!! route('user.change-language', ['vi']) !!}">{{ trans('text.Vietnamese') }}</a>
+                                    <a class="dropdown-item" href="{!! route('user.change-language', ['en']) !!}">{{ trans('text.english') }}</a>
+                                    <a class="dropdown-item" href="{!! route('user.change-language', ['vi']) !!}">{{ trans('text.vietnamese') }}</a>
                                 </div>
                             </div>
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ trans('text.Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ trans('text.login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ trans('text.Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ trans('text.register') }}</a>
                                 </li>
                             @endif
                         @else
-
-
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -69,7 +69,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item button-logout" href="{{ route('logout') }}">
-                                        {{ trans('text.Logout') }}
+                                        {{ trans('text.logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
